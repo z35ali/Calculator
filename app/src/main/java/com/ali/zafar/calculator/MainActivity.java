@@ -65,6 +65,31 @@ public class MainActivity extends AppCompatActivity {
         buttonDecimal.setOnClickListener(listener);
 
 
+        View.OnClickListener operationListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button b = (Button) v;
+                String operation = b.getText().toString();
+                String value = newNumber.getText().toString();
 
+                if (value.length() > 0) {
+                    performOperation(value, operation);
+                }
+
+                pendingOperation = operation;
+                displayOperation.setText(pendingOperation);
+            }
+        };
+        buttonEquals.setOnClickListener(operationListener);
+        buttonMultiply.setOnClickListener(operationListener);
+        buttonDivide.setOnClickListener(operationListener);
+        buttonAdd.setOnClickListener(operationListener);
+        buttonSubtract.setOnClickListener(operationListener);
     }
+
+    private void performOperation(String value, String operation){
+        displayOperation.setText(operation);
+    }
+
 }
+
