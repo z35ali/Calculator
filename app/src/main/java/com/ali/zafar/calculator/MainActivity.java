@@ -6,10 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private EditText result, newNumber;
     private TextView displayOperation;
+
+    private static final String STATE_PENDING_OPERATION = "PendingOperation";
+    private static final String STATE_OPERAND1 = "Operand1";
+
 
     // Variables to hold operands and types of calculations
     private Double operand1 = null;
@@ -104,6 +109,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(STATE_PENDING_OPERATION, pendingOperation);
+
+        if (operand1 != null){
+            outState.putDouble(STATE_OPERAND1, operand1);
+        }
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        pendingOperation = savedInstanceState.getString(STATE_PENDING_OPERATION);
+        operand1 = savedInstanceState.getDouble(STATE_OPERAND1);
+        displayOperation.setText(pendingOperation);
+    }
+
     private void performOperation(Double value, String operation) {
         if (operand1 == null) {
             operand1 = value;
@@ -119,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "/":
                     if (value == 0) {
-                        operand1 = 0.0;
+                        Toast.makeText(this, "CANNOT DIVIDE BY 0", Toast.LENGTH_LONG).show();
                     } else {
                         operand1 = operand1 / value;
                     }
