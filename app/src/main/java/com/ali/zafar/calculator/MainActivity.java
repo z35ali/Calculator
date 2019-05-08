@@ -72,9 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 String operation = b.getText().toString();
                 String value = newNumber.getText().toString();
 
-                if (value.length() != 0) {
-                    performOperation(value, operation);
-                }
+               try{
+                   Double doubleValue = Double.valueOf(value);
+                   performOperation(doubleValue, operation);
+
+               }catch (NumberFormatException e){
+                    newNumber.setText("");
+               }
 
                 pendingOperation = operation;
                 displayOperation.setText(pendingOperation);
@@ -89,11 +93,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void performOperation(String value, String operation) {
+    private void performOperation(Double value, String operation) {
         if (operand1 == null) {
-            operand1 = Double.valueOf(value);
+            operand1 = value;
         } else {
-            operand2 = Double.valueOf(value);
+            operand2 = value;
 
 
             if (pendingOperation.equals("=")) {
