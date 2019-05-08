@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonSubtract = findViewById(R.id.buttonSubtract);
         Button buttonAdd = findViewById(R.id.buttonAdd);
 
+        Button buttonClear = findViewById(R.id.buttonClear);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 String operation = b.getText().toString();
                 String value = newNumber.getText().toString();
 
-               try{
-                   Double doubleValue = Double.valueOf(value);
-                   performOperation(doubleValue, operation);
+                try {
+                    Double doubleValue = Double.valueOf(value);
+                    performOperation(doubleValue, operation);
 
-               }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     newNumber.setText("");
-               }
+                }
 
                 pendingOperation = operation;
                 displayOperation.setText(pendingOperation);
@@ -90,13 +91,24 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(operationListener);
         buttonSubtract.setOnClickListener(operationListener);
 
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                operand1 = null;
+                pendingOperation = "";
+                newNumber.setText("");
+                result.setText("");
+                displayOperation.setText("");
+            }
+        });
+
     }
 
     private void performOperation(Double value, String operation) {
         if (operand1 == null) {
             operand1 = value;
         } else {
-            
+
             if (pendingOperation.equals("=")) {
                 pendingOperation = operation;
             }
