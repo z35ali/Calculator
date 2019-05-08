@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 String operation = b.getText().toString();
                 String value = newNumber.getText().toString();
 
-                if (value.length() > 0) {
+                if (value.length() != 0) {
                     performOperation(value, operation);
                 }
 
@@ -80,16 +80,54 @@ public class MainActivity extends AppCompatActivity {
                 displayOperation.setText(pendingOperation);
             }
         };
+
         buttonEquals.setOnClickListener(operationListener);
         buttonMultiply.setOnClickListener(operationListener);
         buttonDivide.setOnClickListener(operationListener);
         buttonAdd.setOnClickListener(operationListener);
         buttonSubtract.setOnClickListener(operationListener);
+
     }
 
-    private void performOperation(String value, String operation){
-        displayOperation.setText(operation);
-    }
+    private void performOperation(String value, String operation) {
+        if (operand1 == null) {
+            operand1 = Double.valueOf(value);
+        } else {
+            operand2 = Double.valueOf(value);
 
+
+            if (pendingOperation.equals("=")) {
+                pendingOperation = operation;
+            }
+
+            switch (pendingOperation) {
+                case "=":
+                    operand1 = operand2;
+                    break;
+                case "/":
+                    if (operand2 == 0) {
+                        operand1 = 0.0;
+                    } else {
+                        operand1 = operand1 / operand2;
+                    }
+                    break;
+                case "*":
+                    operand1 *= operand2;
+                    break;
+                case "+":
+                    operand1 += operand2;
+                    break;
+                case "-":
+                    operand1 -= operand2;
+                    break;
+            }
+
+
+        }
+        result.setText(operand1.toString());
+        newNumber.setText("");
+    }
 }
+
+
 
