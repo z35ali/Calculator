@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         Button buttonAdd = findViewById(R.id.buttonAdd);
 
         Button buttonClear = findViewById(R.id.buttonClear);
+        Button buttonDelete = findViewById(R.id.buttonDelete);
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 newNumber.append(b.getText().toString());
             }
         };
+
+
 
         button0.setOnClickListener(listener);
         button1.setOnClickListener(listener);
@@ -96,16 +100,41 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(operationListener);
         buttonSubtract.setOnClickListener(operationListener);
 
-        buttonClear.setOnClickListener(new View.OnClickListener() {
+        buttonClear.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 operand1 = null;
                 pendingOperation = "";
                 newNumber.setText("");
                 result.setText("");
                 displayOperation.setText("");
+                Toast.makeText(MainActivity.this, "Cleared!", Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
+
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Long Click to Clear", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String newNumberText = newNumber.getText().toString();
+
+                if(newNumberText.length() < 1){
+                    newNumber.setText("");
+                }else {
+                    newNumber.setText((newNumberText.substring(0, newNumberText.length() - 1)));
+                }
+
+            }
+        });
+
 
 
         Button buttonNeg = findViewById(R.id.buttonNeg);

@@ -8,6 +8,16 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:minWidth="48dp"
+        android:text="DEL"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonNeg"
+        app:layout_constraintStart_toEndOf="@+id/buttonNeg" />
+
+    <Button
         android:id="@+id/buttonNeg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:minWidth="60dp"
+        android:minWidth="48dp"
         android:text="7"
         app:layout_constraintStart_toStartOf="@+id/newNumber"
         app:layout_constraintTop_toBottomOf="@+id/newNumber" />
