@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     try {
                         Double doubleValue = Double.valueOf(value);
-                        doubleValue *= -1;
+                        if (doubleValue != 0.0){
+                            doubleValue *= -1;
+                        }
                         newNumber.setText(doubleValue.toString());
                     } catch(NumberFormatException e) {
                         // newNumber was "-" or ".", so clear it
